@@ -3,7 +3,7 @@ package enumcardsdemo;
 /**
  *
  * @author SinaM
- * @modifier Aaron Tran
+ * @modifier Cam Phuong, Maleki-Kheymehsari Sina, Ormond Graham, Tran Aaron
  */
 public class EnumCardsDemo {
 
