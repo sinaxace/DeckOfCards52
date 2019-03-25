@@ -4,7 +4,7 @@ package enumcardsdemo;
  * @author SinaM
  * @modifier Cam Phuong, Maleki-Kheymehsari Sina, Ormond Graham, Tran Aaron
  */
-public class Card 
+public class Card implements Comparable<Card>
 {
     Rank rank;
     Suit suit;
@@ -39,5 +39,10 @@ public class Card
     public String shortString()
     {
         return rank.getRankName().substring(0)+suit.getUniCode();
+    }
+
+    @Override
+    public int compareTo(Card card) {
+        return this.getRank().getRankNum() - card.getRank().getRankNum();
     }
 }
