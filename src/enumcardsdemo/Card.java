@@ -1,4 +1,7 @@
 package enumcardsdemo;
+
+import javafx.scene.image.ImageView;
+
 /**
  *
  * @author SinaM
@@ -8,8 +11,8 @@ public class Card implements Comparable<Card>
 {
     Rank rank;
     Suit suit;
+//    ImageView picture;
     
-    Card(){}
     Card(Rank rank, Suit suit)
     {
         this.rank = rank;
@@ -31,6 +34,15 @@ public class Card implements Comparable<Card>
     {
         return suit;
     }
+
+//    public ImageView getPicture() {
+//        return picture;
+//    }
+//
+//    public void setPicture(ImageView picture) {
+//        this.picture = picture;
+//    }
+    
     @Override
     public String toString()
     {

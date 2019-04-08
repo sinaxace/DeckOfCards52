@@ -5,6 +5,9 @@
  */
 package enumcardsdemo;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 /**
  *
  * @author SinaM
@@ -23,6 +26,7 @@ public final class DeckOfCards{
         for(Suit suit: Suit.values()){
             for(Rank rank: Rank.values()){
                 cards[i] = new Card(rank, suit);
+//                cards[i].setPicture(new ImageView("card/" + (i + 1) + ".png"));
                 i++;
             }
         }
