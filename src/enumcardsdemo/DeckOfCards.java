@@ -20,30 +20,46 @@ public final class DeckOfCards{
     {
         init();
     }
+    
+    /*
+        Setup deck of cards
+    */
     void init()
     {
-        int i = 0;
-        for(Suit suit: Suit.values()){
-            for(Rank rank: Rank.values()){
-                cards[i] = new Card(rank, suit);
+        
+        int i = 0;// loop instance counter 
+        for(Suit suit: Suit.values()){ // loop through all suits
+            for(Rank rank: Rank.values()){ // loop through all card values
+                cards[i] = new Card(rank, suit); // add the card to the deck
 //                cards[i].setPicture(new ImageView("card/" + (i + 1) + ".png"));
                 i++;
             }
         }
     }
+    
+    /*
+        return a card from the deck
+    */
     Card pickCard()
     {
         return cards[(int)(Math.random()*(52-0)+0)];
     }
+    
+    /*
+        output card name
+    */
     @Override
     public String toString()
     {
-        int i = 0;
-        for (Card card : cards) {
-            System.out.print(card + " ");
+        int i = 0; // loop instance counter
+        System.out.println(cards.length);
+        for (Card card : cards) { // loop through all cards
+            System.out.print(card + " "); // prompt card name
             i++;
-            if(i == 13 || i == 26 || i == 39){System.out.println();}
+            if(i == 13 || i == 26 || i == 39){ // add space at spots
+                System.out.println();
+            }
         }
-        return "\n";
+        return "\n"; 
     }
 }

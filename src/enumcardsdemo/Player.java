@@ -29,8 +29,8 @@ public class Player {
         return score;
     }
 
-    public void addPoint() {
-        this.score += 1;
+    public void addPoint(int amount) {
+        this.score += amount;
     }
     
     

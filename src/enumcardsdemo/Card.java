@@ -11,7 +11,8 @@ public class Card implements Comparable<Card>
 {
     Rank rank;
     Suit suit;
-//    ImageView picture;
+    
+    //    ImageView picture;
     
     Card(Rank rank, Suit suit)
     {
@@ -43,16 +44,27 @@ public class Card implements Comparable<Card>
 //        this.picture = picture;
 //    }
     
+    /*
+        return card name
+    */
     @Override
     public String toString()
     {
         return rank.getRankName()+" of "+suit.getUniCode();
     }
+    
+    /*
+        
+    */
     public String shortString()
     {
         return rank.getRankName().substring(0)+suit.getUniCode();
     }
 
+    
+    /*
+        Compare another card with the players card
+    */
     @Override
     public int compareTo(Card card) {
         return this.getRank().getRankNum() - card.getRank().getRankNum();
