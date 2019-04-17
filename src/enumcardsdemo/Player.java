@@ -7,7 +7,7 @@ import java.util.ArrayList;
  *
  * @author Aaron Tran
  */
-public class Player {
+public class Player implements Comparable<Player>{
     private String name;
     public ArrayList<Card> myDeck = new ArrayList<>();
     private int score;
@@ -33,6 +33,10 @@ public class Player {
         this.score += amount;
     }
     
+    @Override
+    public int compareTo(Player p){
+        return this.getScore() - p.getScore();
+    }
     
     
 

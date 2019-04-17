@@ -24,6 +24,7 @@ public class EnumCardsDemo {
     public static void main(String[] args) 
     {
         // setup variables
+        EnumCardsDemo game = new EnumCardsDemo();
         deck = new DeckOfCards();
         cards = new ArrayList<>(Arrays.asList(deck.cards));
         aDeck = new ArrayList<>();
@@ -35,20 +36,21 @@ public class EnumCardsDemo {
         
         // setup game methods
         Collections.shuffle(cards); // shuffle the cards
-        setUpPlayers(); // get player infomation
-        setupPlayerHands(); // give each player half the deck
+        game.setUpPlayers(p1,p2); // get player infomation
+        //didnt make sense to seperate the dealing cards and names...
+//        game.setupPlayerHands(p1,p2); // give each player half the deck
         
         // game method
-        playGame();
+        game.playGame(p1,p2);
         
         // end game method
-        getEndScore();
+        game.getEndScore(p1,p2);
     }   
     
     /*
         Setup player infomation
     */
-    public static void setUpPlayers(){
+    public void setUpPlayers(Player p1, Player p2){
         System.out.println("Enter Number of Players 1 or 2"); // prompt the user
         OUTER:
         // continue to run until a correct player amount is entered
@@ -74,14 +76,6 @@ public class EnumCardsDemo {
                     break; // break switch, stay in loop
             }
         }
-        
-    }
-   
-    /*
-        Give each player half the deck
-    */
-    public static void setupPlayerHands(){
-        // setup player hands
         for(int i = 0; i < 52; ++i){// loop through the deck
             if(i%2 == 0){ // every other card
                 p1.myDeck.add(cards.get(i)); // add to player 1
@@ -90,12 +84,21 @@ public class EnumCardsDemo {
                 p2.myDeck.add(cards.get(i)); // add to player 2
             }
         }
+        
     }
+   
+    /*
+        Give each player half the deck
+    */
+//    public void setupPlayerHands(Player p1, Player p2){
+//        // setup player hands
+//        
+//    }
     
     /*
         Play through the game for the users
     */
-    public static void playGame(){
+    public void playGame(Player p1, Player p2){
         int war = 0; // keep trace of the war round
         for(int i = 0; i < 52/2; ++i){ // loop through half the deck size
             // create card refences for each player
@@ -123,7 +126,7 @@ public class EnumCardsDemo {
             else{ // THIS MEANS WAR
                 System.out.println("Tie this round"); // tie round
                 System.out.println("Both place one card face down"); // tie round
-                i += 1; // players give away a card to add the war points
+//                i += 1; // players give away a card to add the war points... this made the math wrong only went to 24 cards playe
                 war += 1; // add a point to the war counter
             }
         }
@@ -132,16 +135,26 @@ public class EnumCardsDemo {
     /*
         get the score at the end of the game
     */
-    public static void getEndScore(){
-        if(p1.getScore() > p2.getScore()){ // player one wins
-            System.out.println(p1.getName()+" wins the game");
+    public void getEndScore(Player p1, Player p2){
+        int difference = getFinalScore(p1,p2);
+        if(difference > 0){ // player one wins
+            System.out.println(p1.getName()+" wins the game by " + (p1.getScore() - p2.getScore()) + " points");
         }
-        else if(p1.getScore() < p2.getScore()){ // playe two wins
-            System.out.println(p2.getName() +" wins the game");
+        else if(difference < 0){ // playe two wins
+            System.out.println(p2.getName() +" wins the game by " + (p2.getScore() - p1.getScore()) + " points");
         }
         else{ // tie game
-            System.out.println("Tie");
+            System.out.println("Tie! "+p1.getName()+" "+p1.getScore()+ " : "+p2.getName()+" "+p2.getScore());
         }
+    }
+    
+    //made this for unit testing
+    public int getFinalScore(Player p1, Player p2){
+        return p1.compareTo(p2);
+    }
+    //made this also, but i didn't implement it...
+    public int validName(String name1, String name2){
+        return name1.compareTo(name2);
     }
 }
 
