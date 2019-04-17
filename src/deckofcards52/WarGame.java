@@ -1,4 +1,4 @@
-package enumcardsdemo;
+package deckofcards52;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +10,7 @@ import java.util.Scanner;
  * @author SinaM
  * @modifier Cam Phuong, Maleki-Kheymehsari Sina, Ormond Graham, Tran Aaron
  */
-public class EnumCardsDemo {
+public class WarGame {
     // setup public game variables
     public static DeckOfCards deck;
     public static ArrayList<Card> cards;
@@ -24,8 +24,8 @@ public class EnumCardsDemo {
     public static void main(String[] args) 
     {
         // setup variables
-        EnumCardsDemo game = new EnumCardsDemo();
-        deck = new DeckOfCards();
+        WarGame game = new WarGame();
+        deck = DeckOfCards.getInstance();
         cards = new ArrayList<>(Arrays.asList(deck.cards));
         aDeck = new ArrayList<>();
         input = new Scanner(System.in);
@@ -35,6 +35,7 @@ public class EnumCardsDemo {
         p2 = new Player("");
         
         // setup game methods
+        //change methods, no longer static
         Collections.shuffle(cards); // shuffle the cards
         game.setUpPlayers(p1,p2); // get player infomation
         //didnt make sense to seperate the dealing cards and names...
@@ -52,10 +53,16 @@ public class EnumCardsDemo {
     */
     public void setUpPlayers(Player p1, Player p2){
         System.out.println("Enter Number of Players 1 or 2"); // prompt the user
-        OUTER:
+        String choice = input.nextLine();
+        //added this to validate choice
+        while (!validChoice(choice)){
+            System.out.println("Enter Number of Players 1 or 2"); // prompt the user
+            choice = input.nextLine();
+        }
         // continue to run until a correct player amount is entered
-        while (true) {
-            switch (input.nextLine()) { // switch case for input
+        //changed this to a do while loop
+        do {
+            switch (choice) { // switch case for input
                 case "2": // 2 players
                     // get player ones name
                     System.out.println("Enter player 1 name"); 
@@ -63,19 +70,21 @@ public class EnumCardsDemo {
                     // get player twos name
                     System.out.println("Enter player 2 name");
                     p2.setName(input.nextLine());
-                    break OUTER; // break out of while loop
+                    break; // break out of while loop
                 case "1": // one player
                     // setup player one
                     System.out.println("Enter player 1 name");
                     p1.setName(input.nextLine());
+                    p2.setName("Computer");
                     // setup player two default
-                    p2.setName("Computer"); // set player 2s name to computer
-                    break OUTER; // break out of while loop
+//                    p2.setName("Computer"); // set player 2s name to computer
+                    break; // break out of while loop
                 default:
                     System.out.println("Enter Number of Players 1 or 2"); // prompt the user again
                     break; // break switch, stay in loop
             }
-        }
+        }while(!validNames(p1.getName(), p2.getName()));
+        
         for(int i = 0; i < 52; ++i){// loop through the deck
             if(i%2 == 0){ // every other card
                 p1.myDeck.add(cards.get(i)); // add to player 1
@@ -136,12 +145,12 @@ public class EnumCardsDemo {
         get the score at the end of the game
     */
     public void getEndScore(Player p1, Player p2){
-        int difference = getFinalScore(p1,p2);
+        int difference = getFinalScoreDiff(p1,p2);
         if(difference > 0){ // player one wins
-            System.out.println(p1.getName()+" wins the game by " + (p1.getScore() - p2.getScore()) + " points");
+            System.out.println(p1.getName()+" wins the game by " + difference + " points");
         }
         else if(difference < 0){ // playe two wins
-            System.out.println(p2.getName() +" wins the game by " + (p2.getScore() - p1.getScore()) + " points");
+            System.out.println(p2.getName() +" wins the game by " + (difference*-1) + " points");
         }
         else{ // tie game
             System.out.println("Tie! "+p1.getName()+" "+p1.getScore()+ " : "+p2.getName()+" "+p2.getScore());
@@ -149,12 +158,32 @@ public class EnumCardsDemo {
     }
     
     //made this for unit testing
-    public int getFinalScore(Player p1, Player p2){
+    
+    //gets the difference in score
+    public int getFinalScoreDiff(Player p1, Player p2){
         return p1.compareTo(p2);
     }
-    //made this also, but i didn't implement it...
-    public int validName(String name1, String name2){
-        return name1.compareTo(name2);
+    
+    //makes sure the names are valid... longer than 1 char and not the same
+    public boolean validNames(String name1, String name2){
+        if(name1.compareTo(name2) == 0){
+            System.out.println("Enter different names");
+            return false;
+        }else if(name1.length() <= 1 || name2.length() <= 1){
+            System.out.println("Enter a longer name");
+            return false;
+        }else{
+            return true;
+        }
+    }
+    
+    //check if input for number of players valid
+    public boolean validChoice(String choice){
+        if("1".equals(choice) || "2".equals(choice)){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 

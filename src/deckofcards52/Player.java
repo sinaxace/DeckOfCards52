@@ -1,5 +1,5 @@
 
-package enumcardsdemo;
+package deckofcards52;
 
 import java.util.ArrayList;
 

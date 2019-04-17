@@ -1,4 +1,4 @@
-package enumcardsdemo;
+package deckofcards52;
 
 import javafx.scene.image.ImageView;
 

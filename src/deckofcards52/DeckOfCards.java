@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package enumcardsdemo;
+package deckofcards52;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,7 +16,7 @@ public final class DeckOfCards{
     Card[] cards = new Card[52]; //Reference of objects
     
     
-    DeckOfCards()
+    private DeckOfCards()
     {
         init();
     }
@@ -40,11 +40,21 @@ public final class DeckOfCards{
     /*
         return a card from the deck
     */
+    
     Card pickCard()
     {
         return cards[(int)(Math.random()*(52-0)+0)];
     }
     
+    private static DeckOfCards myInstance = null;
+
+
+    public static DeckOfCards getInstance() {
+        if (myInstance == null) {
+            myInstance = new DeckOfCards();
+        }
+        return myInstance;
+    }
     /*
         output card name
     */
