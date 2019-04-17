@@ -62,7 +62,7 @@ public class WarGameTest {
         assertEquals(expResult, result);
     }
     
-        @Test
+    @Test
     public void testValidNamesBad2() {
         System.out.println("validNamesBad2");
         String name1 = "Aaron";
@@ -84,8 +84,6 @@ public class WarGameTest {
         assertEquals(expResult, result);
     }
     
-    
-
     /**
      * Test of validChoice method, of class WarGame.
      */
